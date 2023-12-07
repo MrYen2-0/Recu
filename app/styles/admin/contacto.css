@@ -1,0 +1,94 @@
+.Contenedor-global {
+  font-family: Arial, sans-serif;
+}
+.contenedor-buscador{
+  display: flex;
+  justify-content: center;
+  margin: 0px;
+  padding: 40px;
+}
+.titulo-buscador {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.titulo1 {
+  color: rgba(189, 189, 189, 1);
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Roboto;
+  font-weight: light;
+  font-size: 64px;
+}
+
+.titulo2 {
+  font-size: 18px;
+  color: rgba(0, 102, 255, 0.81);
+  font-family: Roboto;
+  font-weight: light;
+  font-size: 64px;
+}
+
+.contenedor-buscador {
+  margin: 20px;
+}
+
+.contenedor-buscador label {
+  padding-top: 10px;
+}
+
+.contenedor-buscador form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.contenedor-buscador input {
+  width: 300px;
+  padding: 5px;
+}
+
+.contenedor-buscador button {
+  padding: 5px 10px;
+  margin-top: 1px;
+  width: 70px;
+  height: 40px;
+
+}
+
+button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+.contenedor-usuarios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Estilos para la tarjeta de usuario */
+.usuario {
+  background-color: #ecf0f1;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para la sección de citas */
+.cita {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f39c12;
+  border-radius: 4px;
+}
+
+.boton-request{
+  width: 20%;
+  margin-left: 40%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}

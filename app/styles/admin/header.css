@@ -1,0 +1,87 @@
+.contenedor-header {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  justify-content: space-evenly; /* Cambiar a space-evenly o space-around */
+  align-items: center;
+  background: rgba(255, 255, 255, 1);
+}
+
+.contenedor-header .menu-item {
+  color: rgba(51, 51, 51, 1);
+  font-family: Roboto;
+  font-weight: normal;
+  font-size: 22px;
+  text-align: left;
+  margin: 0 0px;
+}
+.contenedor-header a{
+  height: auto;
+  text-decoration: none; /* Quita la línea subrayada */
+
+}
+.contenedor-header .separator {
+  width: 68px;
+  height: 1px;
+  background: rgba(51, 51, 51, 1);
+  opacity: 1;
+  position: relative;
+  top: 0;
+  overflow: hidden;
+}
+
+.contenedor-header .icono {
+  width: 175px;
+  height: 138px;
+  opacity: 1;
+  top: 0;
+  left: 0;
+}
+
+.contenedor-header .imagen {
+  width: 112px;
+  height: 112px;
+  opacity: 1;
+  top: 10px;
+  right: 10px;
+}
+
+.large-text {
+  font-size: 20px; /* Tamaño de fuente más grande */
+  padding-bottom: 10px; /* Espacio adicional hacia abajo */
+  padding-right: 10px; /* Espacio adicional hacia la derecha */
+}
+
+button {
+  margin-top: 15px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.botones {
+  display: flex;
+  justify-content: center; /* Centra los botones horizontalmente */
+  gap: 20px; /* Espacio entre los botones */
+}
+.profile-modal {
+  position: fixed; /* Fija la posición del modal */
+  top: 0; /* Alinea el modal con la parte superior de la página */
+  right: 0; /* Alinea el modal con el lado derecho de la página */
+  width: 300px; /* Ajusta el ancho del modal a tu preferencia */
+  height: auto; /* Permite que el modal se ajuste a su contenido */
+  z-index: 9999; /* Asegura que el modal esté por encima de todo lo demás en la páginaa que el modal esté por encima de todo lo demás en la página */
+}
+
+.profile-content {
+  background-color: white; /* Proporciona un fondo blanco para el contenido del modal */
+  padding: 20px; /* Proporciona algo de relleno alrededor del contenido del modal */
+  border-radius: 10px; /* Redondea las esquinas del contenido del modal */
+}

@@ -1,0 +1,59 @@
+
+body, #root {
+  font-size: 14px;
+  margin: 0; 
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,1);
+}
+.button-chat {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 20%;
+  height: 10%;
+  margin: 0;
+}
+.Cotenedor-global {
+  width: 100%;
+  height: auto;
+  background: rgba(255, 255, 255, 1);
+  opacity: 1;
+  position: relative;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+.contenedor-titulo {
+  display: flex;
+  width: auto;
+  height: auto;
+  align-items: flex-start;
+  padding: 40px;
+}
+
+.contenedor-header .icono {
+  width: 176px;
+  height: 138px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.contenedor-header .imagen {
+  width: 112px;
+  height: 112px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  position: absolute;
+  top: 12px;
+  right: 0px; 
+}
+
