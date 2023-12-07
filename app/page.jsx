@@ -1,6 +1,6 @@
 "use client";
 import "./styles/usuarios/menu.css";
-import Header from "./components/componentes-admin/Headeradmin";
+import HeaderUsuario from "./components/componentes-usuario/Header";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Footer from "./components/componentes-cliente/Footer";
@@ -41,7 +41,7 @@ function Page() {
 
   return (
     <div className="Contenedor-global">
-      <Header />
+      <HeaderUsuario />
       <div className="contenedor-titulo">
         <div className="titulos">
           <div className="v1_22">García & </div>

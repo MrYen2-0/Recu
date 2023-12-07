@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import '../../styles/usuarios/abogado.css';
-import Header from '../../components/componentes-usuarios/Header';
+import HeaderUsuario from '../../components/componentes-usuario/Header';
 import { useEffect } from 'react';
 import axios from 'axios';
 
@@ -56,7 +56,7 @@ function Page() {
     <div>
       <div className="Contenedor-global">
       <div>
-      <Header />
+      <HeaderUsuario />
     </div>
 <div className="contenedor-tituloabogados">
   <div className="titulos">

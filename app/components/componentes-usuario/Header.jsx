@@ -7,7 +7,7 @@ import LoginModal from './Login';
 import '../../styles/usuarios/header.css';
 
 
-const Header = () => {
+const HeaderUsuario = () => {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
 
   const handleImageClick = () => {
@@ -48,4 +48,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HeaderUsuario;

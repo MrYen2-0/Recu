@@ -1,15 +1,14 @@
 "use client";
 import '../../styles/usuarios/galeria.css';
-import Header from '../../components/componentes-usuarios/Header';
+import HeaderUsuario from '../../components/componentes-usuario/Header';
 import React from 'react';
-import Zoom from '../../components/componentes/Zoom';
-
+import Zoom from '../../components/componentes-usuario/Zoom';
 function Page() {
   return (
     <div>
       <div className="Contenedor-global">
       <div>
-      <Header/>
+      <HeaderUsuario/>
     </div>
 <div className="contenedor-edificiotitulo">
   <div className="titulos">
