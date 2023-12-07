@@ -1,8 +1,9 @@
 "use client";
-import './styles/usuarios/menu.css';
-import Header from './components/componentes/Header';  
-import { Carousel } from 'react-responsive-carousel';
+import "./styles/usuarios/menu.css";
+import Header from "./components/componentes-admin/Headeradmin";
+import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Footer from "./components/componentes-cliente/Footer";
 
 /*const socket = io('http://localhost:9000');
 
@@ -14,8 +15,10 @@ socket.on('disconnect', () => {
 });
 */
 function Page() {
-  const mission = "Cuidado y defensa de los intereses de nuestros clientes en materia del trabajo.";
-  const values = "son: profesionalismo, honradez, calidad en el servicio, lealtad. Ofrecemos defensa en";
+  const mission =
+    "Cuidado y defensa de los intereses de nuestros clientes en materia del trabajo.";
+  const values =
+    "son: profesionalismo, honradez, calidad en el servicio, lealtad. Ofrecemos defensa en";
   const practiceAreas = `.
   juicios laborales y ante instancias superiores. Cuantificamos y 
   asesoramos a los clientes en cuanto a la cuantía que corresponde 
@@ -33,7 +36,7 @@ function Page() {
     "/images/oficinas10.jpg",
     "/images/oficinas15.jpg",
     "/images/oficinas16.jpg",
-    "/images/oficinas17.jpg"
+    "/images/oficinas17.jpg",
   ];
 
   return (
@@ -45,31 +48,36 @@ function Page() {
           <div className="v1_23">Caceres Gonzales</div>
         </div>
         <div className="titulo-edificio">
-    <Carousel>
-      <div>
-        <img src="/images/edificio11.jpg" alt="Edificio 1"/>
-      </div>
-      <div>
-        <img src="/images/edificio12.jpg" alt="Edificio 2"/>
-      </div>
-      <div>
-        <img src="/images/edificio13.jpg" alt="Edificio 3"/>
-      </div>
-    </Carousel>
-  </div>
+          <Carousel>
+            <div>
+              <img src="/images/edificio11.jpg" alt="Edificio 1" />
+            </div>
+            <div>
+              <img src="/images/edificio12.jpg" alt="Edificio 2" />
+            </div>
+            <div>
+              <img src="/images/edificio13.jpg" alt="Edificio 3" />
+            </div>
+          </Carousel>
+        </div>
       </div>
       <div className="contenedor">
         <div className="imagenes">
           {images.slice(0, 3).map((src, index) => (
-            <img key={index} src={src} className="oficinas1" alt={`Oficina ${index + 1}`}/>
+            <img
+              key={index}
+              src={src}
+              className="oficinas1"
+              alt={`Oficina ${index + 1}`}
+            />
           ))}
           <div className="texto-info">
             <div className="info-titulo">Acerca de la empresa</div>
             <div className="info-descripcion">
-            Desde el año 2004, la empresa se crea con la finalidad de prestar
-             servicios profesionales de alta calidad para los clientes, 
-             donde desde esa fecha a la actualidad se cuenta con clientes 
-             satisfechos con los servicios prestados en materia del trabajo.
+              Desde el año 2004, la empresa se crea con la finalidad de prestar
+              servicios profesionales de alta calidad para los clientes, donde
+              desde esa fecha a la actualidad se cuenta con clientes satisfechos
+              con los servicios prestados en materia del trabajo.
             </div>
           </div>
         </div>
@@ -77,24 +85,39 @@ function Page() {
       <div className="contenedor-resumen">
         <div className="resumen-info">
           <h2>Misión y Valores</h2>
-        <div className="texto-oficina"> <a>{mission}
-        Los valores fundamentale, {values}
-      {practiceAreas}</a>
-            </div>
+          <div className="texto-oficina">
+            {" "}
+            <a>
+              {mission}
+              Los valores fundamentale, {values}
+              {practiceAreas}
+            </a>
+          </div>
         </div>
         <div className="contenedor-edificios">
-        <div className="imagenes-edificio">
-          {images.slice(3, 5).map((src, index) => (
-            <img key={index} src={src} className="edificio" alt={`Edificio ${index + 1}`}/>
-          ))}
-        </div>
-        <div className="imagenes-edificio2">
-          {images.slice(5).map((src, index) => (
-            <img key={index} src={src} className="edificio-3" alt={`Edificio ${index + 1}`}/>
-          ))}
-        </div>
+          <div className="imagenes-edificio">
+            {images.slice(3, 5).map((src, index) => (
+              <img
+                key={index}
+                src={src}
+                className="edificio"
+                alt={`Edificio ${index + 1}`}
+              />
+            ))}
+          </div>
+          <div className="imagenes-edificio2">
+            {images.slice(5).map((src, index) => (
+              <img
+                key={index}
+                src={src}
+                className="edificio-3"
+                alt={`Edificio ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

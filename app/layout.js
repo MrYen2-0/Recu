@@ -1,7 +1,4 @@
 import './styles/globals.css';
-import Footer from './components/componentes/Footer';
-
-
 
 
 export const metadata = {
@@ -14,7 +11,6 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
 {children}
-      <Footer/>
       </body>
     </html>
   )
