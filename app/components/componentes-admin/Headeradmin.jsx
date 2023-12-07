@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import LoginModal from './Login';
-import '../../styles/admin/headerUser.css';
+import '../../styles/admin/header.css';
 
 
 const Header = () => {

@@ -1,5 +1,5 @@
 import '../../styles/usuarios/publicacion.css';
-import Header from '../../components/componentes-usuarios/Header';
+import HeaderUsuario from '../../components/componentes-usuario/Header';
 
 
 function Page() {
@@ -7,7 +7,7 @@ function Page() {
     <div>
       <div className="Contenedor-global">
       <div>
-      <Header />
+      <HeaderUsuario />
     </div>
 <div className="contenedor-titulofirmas">
   <div className="titulos">

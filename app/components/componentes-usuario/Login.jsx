@@ -1,11 +1,12 @@
 "use client";
-import React, { useState, useRef } from 'react';
-import axios from 'axios';
+import React, { useState, useRef } from "react";
+import axios from "axios";
 import { Alert } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { io } from 'socket.io-client';
+import { io } from "socket.io-client";
+import { useRouter } from "next/navigation";
 
-const socket = io('http://localhost:9000');
+const socket = io("http://localhost:9000");
 
 const RegisterModal = ({ onClose }) => {
   const [name, setName] = useState("");
@@ -59,7 +60,9 @@ const RegisterModal = ({ onClose }) => {
     await axios
       .post("http://localhost:9000/usuario/registrarse", data)
       .then((response) => {
-        changeMessage("Felicidades por registrarte, ahora inicia sesión para continuar.");
+        changeMessage(
+          "Felicidades por registrarte, ahora inicia sesión para continuar."
+        );
         toggle();
       })
       .catch((error) => {
@@ -111,8 +114,7 @@ const RegisterModal = ({ onClose }) => {
           color="success"
           isOpen={visible}
           toggle={toggle}
-          style={{ position: "fixed", top: 0, right: 0 }}
-        >
+          style={{ position: "fixed", top: 0, right: 0 }}>
           {message}
         </Alert>
       </div>
@@ -121,6 +123,7 @@ const RegisterModal = ({ onClose }) => {
 };
 
 const LoginModal = ({ onClose }) => {
+  const route = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showRegister, setShowRegister] = useState(false);
@@ -131,24 +134,27 @@ const LoginModal = ({ onClose }) => {
   const changeMessage = (text) => setMessage(text);
 
   const handleLogin = async () => {
-
     if (email === "" || password === "") {
       changeMessage("ingresa los datos");
       toggle();
       return;
     }
-    await axios.get(`http://localhost:9000/usuario/login/${email}/${password}`, {}).then((response) => {
+    await axios
+      .get(`http://localhost:9000/usuario/login/${email}/${password}`, {})
+      .then((response) => {
         if (response.data.resultado === false) {
           changeMessage("el usuario no existe");
           toggle();
         } else {
           const token = JSON.stringify(response.data.resultado);
           localStorage.setItem("authToken", token);
-          socket.emit('usuario_conectado', { userId: response.data.resultado._id });
+          socket.emit("usuario_conectado", {
+            userId: response.data.resultado._id,
+          });
           if (response.data.resultado.tipoUsuario === "admin") {
-            window.location.href = "http://localhost:3000/pages/admin/contactos";
+            route.push("/pages/admin/contactos");
           } else {
-            window.location.href = "http://localhost:3000/pages/cliente/menu";
+            route.push("/pages/cliente/menu");
           }
         }
       })
@@ -160,7 +166,14 @@ const LoginModal = ({ onClose }) => {
   };
 
   if (showRegister) {
-    return <RegisterModal onClose={() => {setShowRegister(false); onClose();}} />;
+    return (
+      <RegisterModal
+        onClose={() => {
+          setShowRegister(false);
+          onClose();
+        }}
+      />
+    );
   }
 
   return (
@@ -191,7 +204,7 @@ const LoginModal = ({ onClose }) => {
         </p>
         {/* Usar el componente Alert dentro del JSX, pasándole las propiedades que quieras */}
         <Alert color="danger" isOpen={visible} toggle={toggle}>
-        {message}
+          {message}
         </Alert>
       </div>
     </div>
