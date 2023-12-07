@@ -1,5 +1,5 @@
 import '../../styles/usuarios/publicacion.css';
-import Header from '../../components/componentes/Header';
+import Header from '../../components/componentes-usuarios/Header';
 
 
 function Page() {

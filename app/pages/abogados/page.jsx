@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import '../../styles/usuarios/abogado.css';
-import Header from '../../components/componentes/Header';
+import Header from '../../components/componentes-usuarios/Header';
 import { useEffect } from 'react';
 import axios from 'axios';
 

@@ -1,6 +1,6 @@
 "use client";
 import '../../styles/usuarios/galeria.css';
-import Header from '../../components/componentes/Header';
+import Header from '../../components/componentes-usuarios/Header';
 import React from 'react';
 import Zoom from '../../components/componentes/Zoom';
 
