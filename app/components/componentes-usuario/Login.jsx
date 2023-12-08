@@ -22,55 +22,62 @@ const RegisterModal = ({ onClose }) => {
   const changeMessage = (text) => setMessage(text);
 
   const handleRegister = async () => {
-    var nombre = nameRef.current.value;
-    var resultado = validarNombre(nombre);
+    const nombre = nameRef.current.value;
+    const resultado = validarNombre(nombre);
+    
     if (!resultado) {
       changeMessage("El nombre no es válido");
       toggle();
       return;
     }
-    if (
-      name === "" ||
-      email === "" ||
-      password === "" ||
-      confirmPassword === ""
-    ) {
-      changeMessage("favor de ingresar todos los datos");
+  
+    if (name === "" || email === "" || password === "" || confirmPassword === "") {
+      changeMessage("Favor de ingresar todos los datos");
       toggle();
       return;
     }
+  
     if (!(password === confirmPassword)) {
-      changeMessage("contraseñas no coinciden");
+      changeMessage("Contraseñas no coinciden");
       toggle();
       return;
     }
-    const emailRegex = new RegExp(
-      /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
-    );
+  
+    const emailRegex = new RegExp(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/);
+  
     if (!emailRegex.test(email)) {
-      changeMessage("formato de email invalido");
+      changeMessage("Formato de email inválido");
       toggle();
       return;
     }
-    let data = {
+  
+    const data = {
       nombre: name,
       email: email,
       contrasenia: password,
     };
-    await axios
-      .post("https://api-aboweb-yenter.onrender.com/usuario/registrarse", data)
-      .then((response) => {
-        changeMessage(
-          "Felicidades por registrarte, ahora inicia sesión para continuar."
-        );
-        toggle();
-      })
-      .catch((error) => {
-        changeMessage("ha habido un error " + error);
-        toggle();
-        return;
+  
+    try {
+      const response = await fetch("https://api-aboweb-yenter.onrender.com/usuario/registrarse", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      changeMessage("Felicidades por registrarte, ahora inicia sesión para continuar.");
+      toggle();
+    } catch (error) {
+      changeMessage("Ha habido un error " + error.message);
+      toggle();
+    }
   };
+  
 
   function validarNombre(valor) {
     var regex = /^[A-Za-z]+$/;
@@ -135,35 +142,46 @@ const LoginModal = ({ onClose }) => {
 
   const handleLogin = async () => {
     if (email === "" || password === "") {
-      changeMessage("ingresa los datos");
+      changeMessage("Ingresa los datos");
       toggle();
       return;
     }
-    await axios
-      .get(`https://api-aboweb-yenter.onrender.com/usuario/login/${email}/${password}`, {})
-      .then((response) => {
-        if (response.data.resultado === false) {
-          changeMessage("el usuario no existe");
-          toggle();
-        } else {
-          const token = JSON.stringify(response.data.resultado);
-          localStorage.setItem("authToken", token);
-          socket.emit('usuario_conectado', {
-            userId: response.data.resultado._id,
-          });
-          if (response.data.resultado.tipoUsuario === "admin") {
-            route.push("/pages/admin/contactos");
-          } else {
-            route.push("/pages/cliente/menu");
-          }
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        changeMessage("error al iniciar sesion " + error);
-        toggle();
+  
+    try {
+      const response = await fetch(`https://api-aboweb-yenter.onrender.com/usuario/login/${email}/${password}`, {
+        method: 'GET',
       });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const responseData = await response.json();
+  
+      if (responseData.resultado === false) {
+        changeMessage("El usuario no existe");
+        toggle();
+      } else {
+        const token = JSON.stringify(responseData.resultado);
+        localStorage.setItem("authToken", token);
+  
+        socket.emit('usuario_conectado', {
+          userId: responseData.resultado._id,
+        });
+  
+        if (responseData.resultado.tipoUsuario === "admin") {
+          route.push("/pages/admin/contactos");
+        } else {
+          route.push("/pages/cliente/menu");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      changeMessage("Error al iniciar sesión " + error.message);
+      toggle();
+    }
   };
+  
 
   if (showRegister) {
     return (

@@ -9,44 +9,46 @@ function Page() {
 
     const [abogados,setAbogados] = useState([]);
 
-    const displayAbogados = async() => {
-        await axios.get("https://api-aboweb-yenter.onrender.com/abogado/getAll").then((response) => {
+    const displayAbogados = async () => {
+      try {
+        const response = await fetch("https://api-aboweb-yenter.onrender.com/abogado/getAll");
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
     
-        if(response.data.resultado.length === 0){
-          console.log("no hay abogados");
+        const data = await response.json();
+    
+        if (data.resultado.length === 0) {
+          console.log("No hay abogados");
           return;
         }
     
         let abogados = [];
         let i = 0;
     
-        response.data.resultado.forEach((abogado) => {
+        data.resultado.forEach((abogado) => {
           abogados[i] = (
-          <div className="cuadros-abogados">
-            <div className="texto-abogado">
-                <div className="titulo-abogado">
-                  {abogado.nombre}
-                </div>
-                <div className="descripcion-abogado">
-                  {abogado.descripcion}
-                </div>
+            <div className="cuadros-abogados" key={abogado._id}>
+              <div className="texto-abogado">
+                <div className="titulo-abogado">{abogado.nombre}</div>
+                <div className="descripcion-abogado">{abogado.descripcion}</div>
               </div>
               <div className="imagen-abogado">
-                <img src="/images/persona.png" className="persona-abogado" alt="persona-abogado"/>
+                <img src="/images/persona.png" className="persona-abogado" alt="persona-abogado" />
               </div>
-              <div className="areas-abogado">
-                {abogado.area}
-              </div>
-          </div>);
+              <div className="areas-abogado">{abogado.area}</div>
+            </div>
+          );
           i++;
         });
     
         setAbogados(abogados);
-    
-        }).catch((error) => {
-          alert(error);
-        });
+      } catch (error) {
+        alert(error.message);
       }
+    };
+    
 
       useEffect(() => {
         displayAbogados();

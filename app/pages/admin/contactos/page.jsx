@@ -40,39 +40,44 @@ function Page() {
   const [datoBusqueda, setDatobusqueda] = useState("");
 
   const displayUsuarios = async () => {
-    await axios
-      .get("https://api-aboweb-yenter.onrender.com/usuario/getAll")
-      .then((response) => {
-        if (response.data.resultado.length === 0) {
-          return;
-        }
-
-        let i = 0;
-        let usuarios = [];
-
-        response.data.resultado.forEach((usuario) => {
-          usuarios[i] = (
-            <div key={usuario._id} className="usuario">
-              <div>Nombre: {usuario.nombre}</div>
-              <div>Email: {usuario.email}</div>
-              <div>{cita(usuario)}</div>
-              <button
-                className="boton-request"
-                onClick={() => iniciarChat(usuario._id)}>
-                comenzar chat
-              </button>
-            </div>
-          );
-          i++;
-        });
-
-        setUsuarios(usuarios);
-      })
-      .catch((error) => {
-        alert(error);
-        console.log(error);
+    try {
+      const response = await fetch("https://api-aboweb-yenter.onrender.com/usuario/getAll");
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+  
+      if (data.resultado.length === 0) {
+        return;
+      }
+  
+      let i = 0;
+      let usuarios = [];
+  
+      data.resultado.forEach((usuario) => {
+        usuarios[i] = (
+          <div key={usuario._id} className="usuario">
+            <div>Nombre: {usuario.nombre}</div>
+            <div>Email: {usuario.email}</div>
+            <div>{cita(usuario)}</div>
+            <button
+              className="boton-request"
+              onClick={() => iniciarChat(usuario._id)}>
+              Comenzar chat
+            </button>
+          </div>
+        );
+        i++;
       });
+  
+      setUsuarios(usuarios);
+    } catch (error) {
+      alert(error.message);
+      console.error(error);
+    }
   };
+  
 
   const iniciarChat = async (_id) => {
     localStorage.setItem("_id", _id);
@@ -90,56 +95,61 @@ function Page() {
 
   const filter = async (e) => {
     e.preventDefault();
-
+  
     setUsuarios([]);
     const e_value = datoBusqueda;
-
+  
     setBotonBusquedaDesactivado(true);
-
+  
     if (e_value.length === "" || !e_value) {
       displayUsuarios();
       delay(3000);
       setBotonBusquedaDesactivado(false);
       return;
     }
-    axios
-      .get(`https://api-aboweb-yenter.onrender.com/usuario/filtro/${e_value}`)
-      .then((response) => {
-        if (response.data.resultado.length === 0) {
-          delay(3000);
-          setBotonBusquedaDesactivado(false);
-          return;
-        }
-
-        let i = 0;
-        let usuarios = [];
-
-        response.data.resultado.forEach((usuario) => {
-          usuarios[i] = (
-            <div key={usuario._id} className="usuario">
-              <div>Nombre: {usuario.nombre}</div>
-              <div>Email: {usuario.email}</div>
-              <div>{cita(usuario)}</div>
-              <button
-                className="boton-request"
-                onClick={() => iniciarChat(usuario._id)}>
-                comenzar chat
-              </button>
-            </div>
-          );
-          i++;
-        });
-
-        setUsuarios(usuarios);
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
+  
+    try {
+      const response = await fetch(`https://api-aboweb-yenter.onrender.com/usuario/filtro/${e_value}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+  
+      if (data.resultado.length === 0) {
         delay(3000);
         setBotonBusquedaDesactivado(false);
+        return;
+      }
+  
+      let i = 0;
+      let usuarios = [];
+  
+      data.resultado.forEach((usuario) => {
+        usuarios[i] = (
+          <div key={usuario._id} className="usuario">
+            <div>Nombre: {usuario.nombre}</div>
+            <div>Email: {usuario.email}</div>
+            <div>{cita(usuario)}</div>
+            <button
+              className="boton-request"
+              onClick={() => iniciarChat(usuario._id)}>
+              Comenzar chat
+            </button>
+          </div>
+        );
+        i++;
       });
+  
+      setUsuarios(usuarios);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      delay(3000);
+      setBotonBusquedaDesactivado(false);
+    }
   };
+  
 
   return (
     <div>
