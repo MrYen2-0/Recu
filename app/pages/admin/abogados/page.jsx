@@ -20,74 +20,104 @@ function Page() {
   const [nombreDel,setNombreDel] = useState('');
   const [abogados,setAbogados] = useState([]);
 
-  const displayAbogados = async() => {
-    await axios.get("http://localhost:9000/abogado/getAll").then((response) => {
-    if(response.data.resultado.length === 0){
-      console.log("no hay abogados");
-      return;
+  const displayAbogados = async () => {
+    try {
+      const response = await fetch("https://api-aboweb-yenter.onrender.com/abogado/getAll");
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+  
+      if (data.resultado.length === 0) {
+        console.log("No hay abogados");
+        return;
+      }
+  
+      let abogados = [];
+      let i = 0;
+  
+      data.resultado.forEach((abogado) => {
+        abogados[i] = (
+          <div className="cuadros-abogados" key={abogado._id}>
+            <div className="texto-abogado">
+              <div className="titulo-abogado">{abogado.nombre}</div>
+              <div className="descripcion-abogado">{abogado.descripcion}</div>
+            </div>
+            <div className="imagen-abogado">
+              <img src="/images/persona.png" className="persona-abogado" alt="persona-abogado" />
+            </div>
+            <div className="areas-abogado">{abogado.area}</div>
+          </div>
+        );
+        i++;
+      });
+  
+      setAbogados(abogados);
+    } catch (error) {
+      alert(error.message);
     }
-
-    let abogados = [];
-    let i = 0;
-
-    response.data.resultado.forEach((abogado) => {
-      abogados[i] = (
-      <div className="cuadros-abogados">
-        <div className="texto-abogado">
-            <div className="titulo-abogado">
-              {abogado.nombre}
-            </div>
-            <div className="descripcion-abogado">
-              {abogado.descripcion}
-            </div>
-          </div>
-          <div className="imagen-abogado">
-            <img src="/images/persona.png" className="persona-abogado" alt="persona-abogado"/>
-          </div>
-          <div className="areas-abogado">
-            {abogado.area}
-          </div>
-      </div>);
-      i++;
-    });
-    setAbogados(abogados);
-    }).catch((error) => {
-      alert(error);
-    });
-  }
+  };
+  
 
   useEffect(() => {
     displayAbogados();
   },[]);
 
-  const handleAgregarAbogado = async() => {
-    if((nombre === '' || area === '') || descripcion === ''){
-      alert("favor de ingresar todos los datos");
+  const handleAgregarAbogado = async () => {
+    if (nombre === '' || area === '' || descripcion === '') {
+      alert("Favor de ingresar todos los datos");
       return;
     }
+  
     const data = {
       nombre: nombre,
       area: area,
       descripcion: descripcion
+    };
+  
+    try {
+      const response = await fetch('https://api-aboweb-yenter.onrender.com/abogado/agregar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const responseData = await response.json();
+      alert(responseData.message);
+    } catch (error) {
+      alert(error.message);
     }
-    await axios.post('http://localhost:9000/abogado/agregar', data).then((response) => {
-      alert(response.data.message);
-    }).catch((error) => {
-      alert(error);
-    });
-
-  }
-  const handleEliminarAbogado = async() => {
-    if(nombreDel === '' || nombreDel.length === 0){
-      alert("favor de ingresar el nombre del abogado");
+  };
+  
+  const handleEliminarAbogado = async () => {
+    if (nombreDel === '' || nombreDel.length === 0) {
+      alert("Favor de ingresar el nombre del abogado");
       return;
     }
-    await axios.delete(`http://localhost:9000/abogado/eliminar/${nombreDel}`).then((response) => {
-      alert(response.data.message);
-    }).catch((error) => {
-      alert(error);
-    });
-  }
+  
+    try {
+      const response = await fetch(`https://api-aboweb-yenter.onrender.com/abogado/eliminar/${nombreDel}`, {
+        method: 'DELETE'
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const responseData = await response.json();
+      alert(responseData.message);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+  
   return (
     <div>
       <div className="Contenedor-global">

@@ -4,23 +4,18 @@ import { io } from "socket.io-client";
 import "../../../styles/admin/chat.css";
 import axios from "axios";
 
-const socket = io("http://localhost:9000");
+const socket = io("https://api-aboweb-yenter.onrender.com/");
 
 function Chat() {
   const requerirInformacionChat = async (chatMateId) => {
     await axios
-      .get(`http://localhost:9000/usuario/requerirInfo/${chatMateId}`)
+      .get(`https://api-aboweb-yenter.onrender.com/usuario/requerirInfo/${chatMateId}`)
       .then((response) => {
         console.log(response);
-        if (
-          response.data.resultado.error ||
-          response.data.resultado === false
-        ) {
-          return;
-        }
         setChatMateInfo({
           nombre: response.data.resultado.nombre,
           email: response.data.resultado.email,
+          mostrar: true
         });
       })
       .catch((error) => {
@@ -28,7 +23,7 @@ function Chat() {
       });
   };
 
-  let usuario = JSON.parse(localStorage.getItem("authToken"));
+  const [usuario,setUsuario] = useState({});
 
   if (!usuario) {
     window.location.href = "/";
@@ -36,24 +31,25 @@ function Chat() {
 
   const [mensaje, setMensaje] = useState("");
   const [chat, setChat] = useState([{ mensaje: "", remitente: "" }]);
-  const [chatMateInfo, setChatMateInfo] = useState({
-    nombre: "",
-    email: "",
-  });
+  const [chatMateInfo, setChatMateInfo] = useState({});
   const [infoBool, setInfoBool] = useState(false);
+  const [chatMateId,setChatMateId] = useState('');
 
   useEffect(() => {
+    JSON.parse(localStorage.getItem("authToken"));
     socket.on("confirmar_chat", (data) => {
       console.log(data);
-      requerirInformacionChat(data);
+      setChatMateId(data);
     });
 
     socket.on("enviar_mensaje", (data) => {
       setChat((prevMessages) => [
         ...prevMessages,
-        { remitente: "otro", mensaje: data.remitente + ': ' + data.mensaje },
+        { remitente: "otro", mensaje: data.mensaje },
       ]);
     });
+
+    requerirInformacionChat(chatMateId);
 
     return () => {
       socket.off("connect", () => setIsConnected(false));
@@ -61,7 +57,7 @@ function Chat() {
       socket.off("confirmar_chat");
       localStorage.removeItem("_id");
     };
-  }, []);
+  },[chatMateId]);
 
   const handleEnter = (e) => {
     if (e.key === "Enter" && mensaje.trim() !== "") {
@@ -84,12 +80,10 @@ function Chat() {
       <header className="their-container">
         <div>
           <p className="their-name">
-            {chatMateInfo.nombre !== "" ? chatMateInfo.nombre : "desconocido"}
+            {chatMateInfo.nombre}
           </p>
           <p className="their-userType">
-            {chatMateInfo.nombre !== ""
-              ? chatMateInfo.email
-              : "desconocido"}
+            {chatMateInfo.email}
           </p>
         </div>
       </header>

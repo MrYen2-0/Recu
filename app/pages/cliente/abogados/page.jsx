@@ -9,10 +9,17 @@ function Page() {
 
     const [abogados,setAbogados] = useState([]);
 
-    const displayAbogados = async() => {
-        await axios.get("http://localhost:9000/abogado/getAll").then((response) => {
+    const displayAbogados = async () => {
+      try {
+        const response = await fetch("https://api-aboweb-yenter.onrender.com/abogado/getAll");
+        if (!response.ok) {
+          console.log("no hay abogados");
+          return;
+        }
     
-        if(response.data.resultado.length === 0){
+        const responseData = await response.json();
+    
+        if (responseData.resultado.length === 0) {
           console.log("no hay abogados");
           return;
         }
@@ -20,10 +27,10 @@ function Page() {
         let abogados = [];
         let i = 0;
     
-        response.data.resultado.forEach((abogado) => {
+        responseData.resultado.forEach((abogado) => {
           abogados[i] = (
-          <div className="cuadros-abogados">
-            <div className="texto-abogado">
+            <div className="cuadros-abogados" key={i}>
+              <div className="texto-abogado">
                 <div className="titulo-abogado">
                   {abogado.nombre}
                 </div>
@@ -32,21 +39,22 @@ function Page() {
                 </div>
               </div>
               <div className="imagen-abogado">
-                <img src="/images/persona.png" className="persona-abogado" alt="persona-abogado"/>
+                <img src="/images/persona.png" className="persona-abogado" alt="persona-abogado" />
               </div>
               <div className="areas-abogado">
                 {abogado.area}
               </div>
-          </div>);
+            </div>);
           i++;
         });
     
         setAbogados(abogados);
-    
-        }).catch((error) => {
-          alert(error);
-        });
+      } catch (error) {
+        // Reemplazar la función alert por el componente Alert
+        alert(error.message);
       }
+    };
+    
 
       useEffect(() => {
         displayAbogados();

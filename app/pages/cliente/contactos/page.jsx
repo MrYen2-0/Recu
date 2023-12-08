@@ -2,7 +2,6 @@
 import "../../../styles/clientes/contacto.css";
 import Header from "../../../components/componentes-cliente/Header";
 import { useState, useEffect } from "react";
-import axios from "axios";
 // Importar el componente Alert de reactstrap y el CSS de bootstrap
 import { Alert } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -22,14 +21,14 @@ function Page() {
 
   const guardarInfo = async (e) => {
     e.preventDefault();
-
+  
     if ((telefono === "" || titulo === "") || descripcion === "") {
       // Reemplazar la función alert por el componente Alert
       changeMessage("favor de ingresar todos los datos");
       toggle();
       return;
     }
-
+  
     const regexTelefono = /^\d{10}$/;
     if (!regexTelefono.test(telefono)) {
       // Reemplazar la función alert por el componente Alert
@@ -39,34 +38,41 @@ function Page() {
       toggle();
       return;
     }
-
+  
     const data = {
       telefono: telefono,
       titulo: titulo,
       descripcion: descripcion,
     };
-
+  
     const usuario = JSON.parse(localStorage.getItem("authToken"));
-
-    await axios
-      .put(`http://localhost:9000/usuario/guardarInfo/${usuario._id}`, data)
-      .then((response) => {
-        if (!response) {
-          // Reemplazar la función alert por el componente Alert
-          changeMessage("no ha habido respuesta del servidor");
-          toggle();
-          return;
-        }
-        // Reemplazar la función alert por el componente Alert
-        changeMessage("Gracias por citarnos, espera hasta que te contactemos, que tengas un buen día.");
-        toggle();
-      })
-      .catch((error) => {
-        // Reemplazar la función alert por el componente Alert
-        changeMessage(error);
-        toggle();
+  
+    try {
+      const response = await fetch(`https://api-aboweb-yenter.onrender.com/usuario/guardarInfo/${usuario._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
+  
+      if (!response.ok) {
+        // Reemplazar la función alert por el componente Alert
+        changeMessage("no ha habido respuesta del servidor");
+        toggle();
+        return;
+      }
+  
+      // Reemplazar la función alert por el componente Alert
+      changeMessage("Gracias por citarnos, espera hasta que te contactemos, que tengas un buen día.");
+      toggle();
+    } catch (error) {
+      // Reemplazar la función alert por el componente Alert
+      changeMessage(error.message);
+      toggle();
+    }
   };
+  
 
   useEffect(() => {
     const usuario = JSON.parse(localStorage.getItem("authToken"));
