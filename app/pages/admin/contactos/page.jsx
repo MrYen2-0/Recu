@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
 import { useRouter } from "next/navigation";
-const socket = io("http://localhost:9000");
+const socket = io("https://api-aboweb-yenter.onrender.com/");
 
 function Page() {
-  const [usuario, setUsuario] = useState("");
+  const [usuario, setUsuario] = useState({});
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const route = useRouter();
 
@@ -41,7 +41,7 @@ function Page() {
 
   const displayUsuarios = async () => {
     await axios
-      .get("http://localhost:9000/usuario/getAll")
+      .get("https://api-aboweb-yenter.onrender.com/usuario/getAll")
       .then((response) => {
         if (response.data.resultado.length === 0) {
           return;
@@ -103,7 +103,7 @@ function Page() {
       return;
     }
     axios
-      .get(`http://localhost:9000/usuario/filtro/${e_value}`)
+      .get(`https://api-aboweb-yenter.onrender.com/usuario/filtro/${e_value}`)
       .then((response) => {
         if (response.data.resultado.length === 0) {
           delay(3000);

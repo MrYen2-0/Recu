@@ -49,7 +49,7 @@ function Page() {
     const usuario = JSON.parse(localStorage.getItem("authToken"));
 
     await axios
-      .put(`http://localhost:9000/usuario/guardarInfo/${usuario._id}`, data)
+      .put(`https://api-aboweb-yenter.onrender.com/usuario/guardarInfo/${usuario._id}`, data)
       .then((response) => {
         if (!response) {
           // Reemplazar la función alert por el componente Alert

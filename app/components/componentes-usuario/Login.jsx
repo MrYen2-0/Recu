@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { io } from "socket.io-client";
 import { useRouter } from "next/navigation";
 
-const socket = io("http://localhost:9000");
+const socket = io("https://api-aboweb-yenter.onrender.com");
 
 const RegisterModal = ({ onClose }) => {
   const [name, setName] = useState("");
@@ -58,7 +58,7 @@ const RegisterModal = ({ onClose }) => {
       contrasenia: password,
     };
     await axios
-      .post("http://localhost:9000/usuario/registrarse", data)
+      .post("https://api-aboweb-yenter.onrender.com/usuario/registrarse", data)
       .then((response) => {
         changeMessage(
           "Felicidades por registrarte, ahora inicia sesión para continuar."
@@ -140,7 +140,7 @@ const LoginModal = ({ onClose }) => {
       return;
     }
     await axios
-      .get(`http://localhost:9000/usuario/login/${email}/${password}`, {})
+      .get(`https://api-aboweb-yenter.onrender.com/usuario/login/${email}/${password}`, {})
       .then((response) => {
         if (response.data.resultado === false) {
           changeMessage("el usuario no existe");
@@ -148,7 +148,7 @@ const LoginModal = ({ onClose }) => {
         } else {
           const token = JSON.stringify(response.data.resultado);
           localStorage.setItem("authToken", token);
-          socket.emit("usuario_conectado", {
+          socket.emit('usuario_conectado', {
             userId: response.data.resultado._id,
           });
           if (response.data.resultado.tipoUsuario === "admin") {

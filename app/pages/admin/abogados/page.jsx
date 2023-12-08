@@ -21,7 +21,7 @@ function Page() {
   const [abogados,setAbogados] = useState([]);
 
   const displayAbogados = async() => {
-    await axios.get("http://localhost:9000/abogado/getAll").then((response) => {
+    await axios.get("https://api-aboweb-yenter.onrender.com/abogado/getAll").then((response) => {
     if(response.data.resultado.length === 0){
       console.log("no hay abogados");
       return;
@@ -70,7 +70,7 @@ function Page() {
       area: area,
       descripcion: descripcion
     }
-    await axios.post('http://localhost:9000/abogado/agregar', data).then((response) => {
+    await axios.post('https://api-aboweb-yenter.onrender.com/abogado/agregar', data).then((response) => {
       alert(response.data.message);
     }).catch((error) => {
       alert(error);
@@ -82,7 +82,7 @@ function Page() {
       alert("favor de ingresar el nombre del abogado");
       return;
     }
-    await axios.delete(`http://localhost:9000/abogado/eliminar/${nombreDel}`).then((response) => {
+    await axios.delete(`https://api-aboweb-yenter.onrender.com/abogado/eliminar/${nombreDel}`).then((response) => {
       alert(response.data.message);
     }).catch((error) => {
       alert(error);

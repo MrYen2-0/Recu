@@ -10,7 +10,7 @@ function Page() {
     const [abogados,setAbogados] = useState([]);
 
     const displayAbogados = async() => {
-        await axios.get("http://localhost:9000/abogado/getAll").then((response) => {
+        await axios.get("https://api-aboweb-yenter.onrender.com/abogado/getAll").then((response) => {
     
         if(response.data.resultado.length === 0){
           console.log("no hay abogados");

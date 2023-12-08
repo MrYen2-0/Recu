@@ -5,7 +5,7 @@ import '../../styles/clientes/header.css';
 import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:9000');
+const socket = io('https://api-aboweb-yenter.onrender.com/');
 
 
 const Header = () => {
@@ -15,15 +15,16 @@ const Header = () => {
   useEffect(() => {
     socket.on('confirmar_chat', (data) => {
       console.log(data);
-      alert("la comunicacion ha llegado hasta aqui" + data);
+      alert("un administrador ha abierto el canal de chat");
       setChatDisponible(true);
       setAdminId(data);
       //socket.emit('joinChat', {});
       //socket.emit('iniciar_chat', {idUsuarioReceptor: data.adminId});
-    });
+    }, []);
 
     return () => {
       socket.off("activar_chat_respuesta");
+      socket.off("confirmar_chat");
     }
 
   },[]);
