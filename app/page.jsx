@@ -3,17 +3,10 @@ import "./styles/usuarios/menu.css";
 import HeaderUsuario from "./components/componentes-usuario/Header";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import Footer from "./components/componentes-cliente/Footer";
+import AcercaDe from "./components/menu/AcercaDe";
+import MisionValores from "./components/menu/MisionValores";
+import Edificios from "./components/menu/Edificios";
 
-/*const socket = io('http://localhost:9000');
-
-socket.on('connect', () => {
-  console.log("socket conectado con exito");
-});
-socket.on('disconnect', () => {
-  console.log("desconectando socket");
-});
-*/
 function Page() {
   const mission =
     "Cuidado y defensa de los intereses de nuestros clientes en materia del trabajo.";
@@ -61,63 +54,11 @@ function Page() {
           </Carousel>
         </div>
       </div>
-      <div className="contenedor">
-        <div className="imagenes">
-          {images.slice(0, 3).map((src, index) => (
-            <img
-              key={index}
-              src={src}
-              className="oficinas1"
-              alt={`Oficina ${index + 1}`}
-            />
-          ))}
-          <div className="texto-info">
-            <div className="info-titulo">Acerca de la empresa</div>
-            <div className="info-descripcion">
-              Desde el año 2004, la empresa se crea con la finalidad de prestar
-              servicios profesionales de alta calidad para los clientes, donde
-              desde esa fecha a la actualidad se cuenta con clientes satisfechos
-              con los servicios prestados en materia del trabajo.
-            </div>
-          </div>
-        </div>
-      </div>
+      <AcercaDe images={images} />
       <div className="contenedor-resumen">
-        <div className="resumen-info">
-          <h2>Misión y Valores</h2>
-          <div className="texto-oficina">
-            {" "}
-            <a>
-              {mission}
-              Los valores fundamentale, {values}
-              {practiceAreas}
-            </a>
-          </div>
-        </div>
-        <div className="contenedor-edificios">
-          <div className="imagenes-edificio">
-            {images.slice(3, 5).map((src, index) => (
-              <img
-                key={index}
-                src={src}
-                className="edificio"
-                alt={`Edificio ${index + 1}`}
-              />
-            ))}
-          </div>
-          <div className="imagenes-edificio2">
-            {images.slice(5).map((src, index) => (
-              <img
-                key={index}
-                src={src}
-                className="edificio-3"
-                alt={`Edificio ${index + 1}`}
-              />
-            ))}
-          </div>
-        </div>
+        <MisionValores mission={mission} values={values} practiceAreas={practiceAreas} />
+        <Edificios images={images} />
       </div>
-      <Footer />
     </div>
   );
 }
