@@ -45,7 +45,7 @@ function Chat() {
     socket.on("enviar_mensaje", (data) => {
       setChat((prevMessages) => [
         ...prevMessages,
-        { remitente: "otro", mensaje: data.remitente + ': ' + data.mensaje },
+        { remitente: "otro", mensaje: data.mensaje },
       ]);
     });
 
