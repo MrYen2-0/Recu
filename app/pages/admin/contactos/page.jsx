@@ -83,11 +83,6 @@ function Page() {
       console.error("Error al iniciar el chat:", error);
     }
   };
-
-  useEffect(() => {
-    displayUsuarios();
-  }, []);
-
   const filter = async (e) => {
     e.preventDefault();
 

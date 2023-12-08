@@ -202,7 +202,6 @@ const LoginModal = ({ onClose }) => {
             Regístrate
           </span>
         </p>
-        {/* Usar el componente Alert dentro del JSX, pasándole las propiedades que quieras */}
         <Alert color="danger" isOpen={visible} toggle={toggle}>
           {message}
         </Alert>
