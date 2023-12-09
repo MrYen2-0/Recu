@@ -4,12 +4,12 @@ import { io } from "socket.io-client";
 import "../../../styles/admin/chat.css";
 import axios from "axios";
 
-const socket = io("https://api-aboweb-yenter.onrender.com/");
+const socket = io(`${process.env.API_SERVER}`);
 
 function Chat() {
   const requerirInformacionChat = async (chatMateId) => {
     await axios
-      .get(`https://api-aboweb-yenter.onrender.com/usuario/requerirInfo/${chatMateId}`)
+      .get(`${process.env.API_SERVER}/requerirInfo/${chatMateId}`)
       .then((response) => {
         console.log(response);
         setChatMateInfo({

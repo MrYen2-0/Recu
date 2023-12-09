@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
 import { useRouter } from "next/navigation";
-const socket = io("https://api-aboweb-yenter.onrender.com/");
+const socket = io(`${process.env.API_SERVER}`);
+
 
 function Page() {
   const [usuario, setUsuario] = useState({});
@@ -41,7 +42,7 @@ function Page() {
 
   const displayUsuarios = async () => {
     try {
-      const response = await fetch("https://api-aboweb-yenter.onrender.com/usuario/getAll");
+      const response = await fetch(`${process.env.API_SERVER}/usuario/getAll`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -104,7 +105,7 @@ function Page() {
     }
   
     try {
-      const response = await fetch(`https://api-aboweb-yenter.onrender.com/usuario/filtro/${e_value}`);
+      const response = await fetch(`${process.env.API_SERVER}/usuario/filtro/${e_value}`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }

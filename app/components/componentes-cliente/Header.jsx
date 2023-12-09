@@ -5,7 +5,7 @@ import '../../styles/clientes/header.css';
 import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
-const socket = io('https://api-aboweb-yenter.onrender.com/');
+const socket = io(`${process.env.API_SERVER}`);
 
 
 const Header = () => {

@@ -48,7 +48,7 @@ function Page() {
     const usuario = JSON.parse(localStorage.getItem("authToken"));
   
     try {
-      const response = await fetch(`https://api-aboweb-yenter.onrender.com/usuario/guardarInfo/${usuario._id}`, {
+      const response = await fetch(`${process.env.API_SERVER}/usuario/guardarInfo/${usuario._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

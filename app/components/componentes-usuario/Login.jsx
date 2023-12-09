@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { io } from "socket.io-client";
 import { useRouter } from "next/navigation";
 
-const socket = io("https://api-aboweb-yenter.onrender.com");
+const socket = io(`${process.env.API_SERVER}`);
 
 const RegisterModal = ({ onClose }) => {
   const [name, setName] = useState("");
@@ -58,7 +58,7 @@ const RegisterModal = ({ onClose }) => {
     };
   
     try {
-      const response = await fetch("https://api-aboweb-yenter.onrender.com/usuario/registrarse", {
+      const response = await fetch(`${process.env.API_SERVER}/usuario/registrarse`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ const LoginModal = ({ onClose }) => {
     }
   
     try {
-      const response = await fetch(`https://api-aboweb-yenter.onrender.com/usuario/login/${email}/${password}`, {
+      const response = await fetch(`${process.env.API_SERVER}/usuario/login/${email}/${password}`, {
         method: 'GET',
       });
   

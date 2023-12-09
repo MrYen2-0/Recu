@@ -9,7 +9,7 @@ function Page() {
 
     const displayAbogados = async () => {
       try {
-        const response = await fetch("https://api-aboweb-yenter.onrender.com/abogado/getAll");
+        const response = await fetch(`${process.env.API_SERVER}/abogado/getAll`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

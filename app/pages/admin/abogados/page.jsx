@@ -22,7 +22,7 @@ function Page() {
 
   const displayAbogados = async () => {
     try {
-      const response = await fetch("https://api-aboweb-yenter.onrender.com/abogado/getAll");
+      const response = await fetch(`${process.env.API_SERVER}/abogado/getAll`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -77,7 +77,7 @@ function Page() {
     };
   
     try {
-      const response = await fetch('https://api-aboweb-yenter.onrender.com/abogado/agregar', {
+      const response = await fetch(`${process.env.API_SERVER}/abogado/agregar`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -103,7 +103,7 @@ function Page() {
     }
   
     try {
-      const response = await fetch(`https://api-aboweb-yenter.onrender.com/abogado/eliminar/${nombreDel}`, {
+      const response = await fetch(`${process.env.API_SERVER}/abogado/eliminar/${nombreDel}`, {
         method: 'DELETE'
       });
   
